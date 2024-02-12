@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant:wght@300&display=swap');
+body {
+  font-family: 'Cormorant', serif;
+  cursor: default;
+}
+.light-color {
+  background-color: #edede9;
+}
+.darl-color {
+  background-color: #d6ccc2;
+}
+.darl-color-2 {
+  background-color: #dbcdc3;
+}
+h2 {
+  margin: 16px 0px;
+  font-size: 42px;
+}
+h3 {
+  margin: 16px 0px;
+}
+p {
+  font-size: 22px;
+}
+small {
+  font-size: 18px;
+}
+.card-body p {
+  font-size: 18px;
+}
+.btn-primary {
+  font-size: 18px;
+  padding: 10px;
+  background-color: #8a766b;
+  color: #fff;
+  border-radius: 30px;
+  border: 1px solid #8a766b;
+  width: 15rem;
+}
+.btn-primary:hover {
+  background-color: #968276;
+  border: 1px solid #8a766b;
+}
+.btn-primary:focus,
+.btn-primary:active {
+  background-color: #6e6058 !important;
+  border: 1px solid #6e6058 !important;
+}
+
+.h-90 {
+  height: 90%;
+}
+a,
+.nav-link {
+  color: #000000 !important;
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+  text-decoration: none;
+  /* transition: transform 500ms ease; */
+  /* padding-bottom: 5px; */
+}
+a:hover {
+  color: #413835 !important;
+  border-bottom: 1px solid #746e6b;
+  /* transform: scale(1.1) translateY(-5px); */
+}
+a.active {
+  color: #413835 !important;
+  border-bottom: 1px solid #746e6b;
+}
+.navbar-brand:hover {
+  border-bottom: 1px solid transparent;
+}
+.navbar-brand.active {
+  border-bottom: 1px solid transparent;
+}
+hr,
+li {
+  margin: 5px;
+}
+p,
+ul,
+li {
+  font-size: 20px !important;
+}
+ul {
+  list-style-image: url(./assets/img/list-icon.png);
+}
+
+.num {
+  font-size: 50px;
+  text-align: center;
+  font-weight: bold;
+}
