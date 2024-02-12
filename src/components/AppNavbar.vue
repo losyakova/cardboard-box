@@ -25,7 +25,7 @@
           <li class="nav-item">
             <router-link
               class="nav-link"
-              :to="{ path: '/show', hash: '#regist' }"
+              :to="{ path: '/show' }"
               >Онлайн-выставка</router-link
             >
           </li>

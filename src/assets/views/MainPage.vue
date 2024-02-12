@@ -88,7 +88,7 @@
 
     <div class="container pb-4" v-if="isReady">
       <app-card-horizontal
-        v-for="fact in getFacts()"
+        v-for="fact in facts"
         :key="fact.id"
         :title="fact.title"
         :img="fact.img"
@@ -111,6 +111,7 @@ import AppImageBanner from '@/components/AppImageBanner.vue';
 import AppCardHorizontal from '@/components/AppCardHorizontal.vue';
 import TheSlider from '@/components/TheSlider.vue';
 import AppLoader from '@/components/AppLoader.vue';
+import {mapActions, mapGetters} from 'vuex'
 
 export default {
   data() {
@@ -142,13 +143,13 @@ export default {
       email: '',
       firstName: '',
       phone: '',
-      facts: null,
       isReady: true,
       regularEmail:
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
     };
   },
   methods: {
+    ...mapActions('factCats', ['load']),
     submit() {
       let flag = { name: true, phone: true, email: true };
       if (!this.email) {
@@ -178,27 +179,9 @@ export default {
       if (flag.name && flag.phone && flag.email) this.addEntry();
     },
     async loadfacts() {
-      let tempdata = this.getFacts();
-      if (tempdata !== null) return;
-      try {
-        this.isReady = false;
-        const response = await fetch(
-          'https://fbproject-cats-vue-default-rtdb.firebaseio.com/facts.json'
-        );
-        const data = await response.json();
-        this.setFacts(
-          Object.keys(data).map((key) => {
-            return {
-              id: key,
-              ...data[key],
-            };
-          })
-        );
-      } catch (e) {
-        console.error(e);
-      } finally {
-        this.isReady = true;
-      }
+      this.isReady = false;
+      await this.load();
+      this.isReady = true;
     },
     async addEntry() {
       try {
@@ -246,13 +229,16 @@ export default {
   },
   mounted() {
     this.loadfacts();
+
     let section = this.$route.hash.replace('#', '');
     if (section)
       this.$nextTick(() =>
         window.document.getElementById(section).scrollIntoView()
       );
   },
-  inject: ['getFacts', 'setFacts'],
+  computed: {
+    ...mapGetters('factCats', ['facts'])
+  }
 };
 </script>
 

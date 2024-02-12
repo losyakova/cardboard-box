@@ -59,14 +59,13 @@
       </app-text-block>
     </div>
   </div>
-
   <div class="container-fluid" :class="isReady ? 'darl-color' : 'light-color'">
     <div class="container pt-5 pb-5">
       <the-show-cats
         v-if="isReady"
         @show-modal="openCard"
         idModal="#modalToggle"
-        :content="getCatsInfo()"
+        :content="info"
       ></the-show-cats>
       <app-loader v-else></app-loader>
     </div>
@@ -78,6 +77,7 @@ import AppCardHorizontal from '@/components/AppCardHorizontal.vue';
 import AppTextBlock from '@/components/AppTextBlock.vue';
 import TheShowCats from '@/components/TheShowCats.vue';
 import AppLoader from '@/components/AppLoader.vue';
+import {mapActions, mapGetters} from 'vuex'
 
 export default {
   components: { AppCardHorizontal, AppTextBlock, TheShowCats, AppLoader },
@@ -86,34 +86,16 @@ export default {
       this.active = 'description';
       this.catsItem = i;
     },
-    async loadInfoCats() {
-      let tempdata = this.getCatsInfo(); //
-      if (tempdata !== null) return;
-      try {
-        this.isReady = false;
-        const responce = await fetch(
-          'https://fbproject-cats-vue-default-rtdb.firebaseio.com/cats.json'
-        );
-        const data = await responce.json();
-        this.setCatsInfo(
-          Object.keys(data).map((key) => {
-            return {
-              id: key,
-              ...data[key],
-            };
-          })
-        );
-      } catch (e) {
-        console.warn(e.message);
-      } finally {
-        this.isReady = true;
-      }
-    },
+    ...mapActions('infoCats', ['load']),
+    async loadInfoCats(){
+      this.isReady = false;
+      await this.load();
+      this.isReady = true;
+    }
   },
   data() {
     return {
       isReady: true,
-      // catsInfo: null,
       catsItem: {},
       active: 'description',
     };
@@ -125,11 +107,11 @@ export default {
       else if (this.active === 'nature') return 'Характер';
       else return '==noknow==';
     },
+    ...mapGetters('infoCats', ['info'])
   },
   mounted() {
     this.loadInfoCats();
-  },
-  inject: ['setCatsInfo', 'getCatsInfo'],
+  }
 };
 </script>
 
