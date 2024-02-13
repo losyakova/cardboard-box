@@ -7,6 +7,7 @@ export default createStore({
     factCats,
     infoCats
   },
+  //навигация
   state() {
     return{
       uishow: true
