@@ -6,5 +6,20 @@ export default createStore({
   modules: {
     factCats,
     infoCats
+  },
+  state() {
+    return{
+      uishow: true
+    }
+  },
+  mutations: {
+    setUishow(state, payload){
+      state.uishow = payload;
+    }
+  },
+  getters: {
+    uishow(state){
+      return state.uishow;
+    }
   }
 });

@@ -11,60 +11,12 @@
 <script>
 import AppNavbar from './components/AppNavbar.vue';
 import AppFooter from './components/AppFooter.vue';
+import { mapGetters} from 'vuex';
+
 export default {
-  data() {
-    return {
-      uishow: true,
-      factsList: null,
-      catsInfoList: null,
-    };
-  },
   name: 'App',
   components: { AppNavbar, AppFooter },
-  methods: {
-    setUishow(value) {
-      this.uishow = value;
-    },
-    getCatsInfo() {
-      return this.catsInfoList;
-    },
-    setCatsInfo(value) {
-      this.catsInfoList = value;
-    },
-    setFacts(value) {
-      this.factsList = value;
-    },
-    getFacts() {
-      return this.factsList;
-    },
-  },
-  provide() {
-    return {
-      setUishow: this.setUishow,
-      getCatsInfo: this.getCatsInfo,
-      setCatsInfo: this.setCatsInfo,
-      setFacts: this.setFacts,
-      getFacts: this.getFacts,
-    };
-  },
-  // computed: {
-  //   facts: {
-  //     get() {
-  //       return this.factsList;
-  //     },
-  //     set(value) {
-  //       this.factsList = value;
-  //     },
-  //   },
-  //   catsInfo: {
-  //     get() {
-  //       return this.catsInfoList;
-  //     },
-  //     set(value) {
-  //       this.catsInfoList = value;
-  //     },
-  //   },
-  // },
+  computed: mapGetters(['uishow']),
 };
 </script>
 

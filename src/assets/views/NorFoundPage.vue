@@ -13,8 +13,9 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
 export default {
-  inject: ['setUishow'],
+  methods: mapMutations(['setUishow']),
   mounted() {
     this.setUishow(false);
   },
